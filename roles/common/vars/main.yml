@@ -1,0 +1,8 @@
+---
+# list of utilities
+common_app_list:
+  - {name: vim}
+  - {name: git}
+  - {name: wget}
+  - {name: libselinux-python}
+  - {name: libsemanage-python}

@@ -1,0 +1,29 @@
+---
+
+- name: Ensure httpd is lates 
+  yum:
+      name: httpd
+      state: latest 
+  notify: "Ensure httpd is enabled and running"
+  tags: http
+
+- name: Configure php-fpm
+  template:
+      src: conf.d/php.conf.j2
+      dest: /etc/httpd/conf.d/php.conf
+
+- name: Ensure mod24_ssl is present
+  yum:
+      name: mod_ssl
+      state: latest
+  notify: "Ensure httpd is enabled and running"
+  tags: http
+
+########################
+# SELINUX Security
+########################
+#- name: Ensure httpd can connect to a database
+#  seboolean:
+#    name: httpd_can_network_connect_db 
+#    state: yes 
+#    persistent: yes

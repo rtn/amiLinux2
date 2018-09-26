@@ -1,0 +1,6 @@
+---
+- name: Ensure httpd is enabled and running
+  service:
+      name: httpd
+      enabled: yes
+      state: started

@@ -1,0 +1,8 @@
+---
+- name: Ensure php-fpm is enabled and running
+  service:
+      name: restart php-fpm
+      enabled: yes
+      state: restarted
+      listen: "restart php-fpm"
+

@@ -1,0 +1,21 @@
+---
+# Manage all common applications on AWS AMI-LINUX-2 servers is RHEL 6.x
+
+# On AWS AMI Linux 2 you have to install php72 the AWS way
+- name: Ensure AWS Linux 2 installs PhP 7.2
+  command: amazon-linux-extras install php7.2
+
+
+- name: Ensure php-fpm socket directory exists
+  file:
+      name: /run/php-fpm
+      state: directory
+
+- name: Ensure php 7.2
+  yum:
+      name: "{{ item.0 }}"
+      state: present
+  with_nested: 
+      - "{{ php_mod_list }}"
+#  notify: "restart php-fpm"
+#  tags: php

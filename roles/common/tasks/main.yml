@@ -1,0 +1,38 @@
+# Manage all common applications on CENTOS servers
+#
+---
+- name: Ensure system timezone is America/Los_Angeles
+  timezone:
+      name: America/Los_Angeles
+
+- name: Ensure essential tools
+  yum:
+      name: "{{ item.name }}"
+      state: latest
+  with_items:
+      - "{{ common_app_list }}"
+
+# System Utilities update
+- name: Yum userland update
+  yum:
+      name: '*'
+      exclude: kernel*
+      state: latest
+
+# System Kernel update
+- name: Yum kernel update
+  yum:
+      name: kernel*
+      state: latest 
+  register: kernel_update
+ 
+- name: Reboot if kernel is updated
+  command: /sbin/shutdown -r +2
+  async: 0
+  poll: 0
+  ignore_errors: true
+  when: kernel_update.changed
+  
+- name: Wait for machine to be alive
+  wait_for_connection:
+      timeout: 360

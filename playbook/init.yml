@@ -1,0 +1,13 @@
+# GauchoSpace web tier is defined as the "web" group
+# 
+
+---
+- name: Web Servers 
+  hosts: web
+  gather_facts: False
+  remote_user: ec2-user 
+  become: yes 
+  become_method: sudo
+
+  roles:
+      - common

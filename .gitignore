@@ -1,0 +1,11 @@
+
+# ignore files for public sharing
+hosts
+
+# logs
+*.log
+
+# vim
+*.sw*
+
+

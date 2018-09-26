@@ -1,0 +1,16 @@
+# host is routed to ~/.ansible/hosts vi ~/.ansible.cfg
+
+# Use to deploy cloud instances using euca2ool or other similar thing that
+# exists on the controller machine
+#[controller]
+
+# FreeBSD controller machine requires python interpretor path here to work properly
+#127.0.0.1 ansible_connection=local ansible_python_interpreter=/usr/local/bin/python2.7
+
+
+#[web]
+#{web1 ip}
+#{web2 ip}
+
+#[nfs]
+#{your nfs ip}

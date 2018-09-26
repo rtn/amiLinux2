@@ -1,0 +1,12 @@
+---
+# defaults file for httpd
+dir_list:
+  - [/var/www/ssl]
+
+# getsebool -a | grep httpd
+web_sebool_list:
+  - [httpd_can_connect_ldap]
+  - [httpd_can_network_connect]
+  - [httpd_can_network_connect_db]
+  - [httpd_can_sendmail]
+

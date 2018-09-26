@@ -1,0 +1,23 @@
+---
+# defaults file for php
+
+php_fpm_sock: /run/php-fpm/www.sock
+php_mod_list:
+  - [php-cli]
+  - [php-common]
+  - [php-dba]
+  - [php-fpm]
+  - [php-gd]
+  - [php-intl]
+  - [php-json]
+  - [php-ldap]
+  - [php-mbstring]
+  - [php-mysqlnd]
+  - [php-opcache]
+  - [php-pear]
+  - [php-pdo]
+  - [php-process]
+  - [php-pspell]
+  - [php-soap]
+  - [php-xml]
+  - [php-xmlrpc]

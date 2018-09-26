@@ -1,0 +1,60 @@
+# Manage all common applications on CENTOS servers
+#
+---
+- name: ENSURE COMMON ENV ON ALL CENTOS SERVERS
+  hosts: all 
+  gather_facts: False
+  remote_user: centos
+  become: yes
+  become_method: sudo
+  #
+  #
+  # list of utilities
+  vars:
+    app_list:
+    - [vim]
+    - [nano]
+    - [git]
+    - [wget]
+
+  # include external var files
+  # vars_files:
+  #     - /vars/external_vars.yml 
+
+  tasks:
+      - name: Ensure system timezone is America/Los_Angeles
+        timezone:
+            name: America/Los_Angeles
+
+      - name: Ensure essential tools
+        yum:
+            name: "{{ item.0 }}"
+            state: latest
+        with_nested:
+            - "{{ app_list }}"
+
+      # System Utilities update
+      - name: Yum userland update
+        yum:
+            name: '*'
+            exclude: kernel*
+            state: latest
+
+      # System Kernel update
+      - name: Yum kernel update
+        yum:
+            name: kernel*
+            state: latest 
+        register: kernel_update
+        
+      - name: Reboot if kernel is updated
+        command: /sbin/shutdown -r +1
+        async: 0
+        poll: 0
+        ignore_errors: true
+        when: kernel_update.changed
+      
+      - name: Wait for machine to be alive
+        wait_for_connection:
+            timeout: 360
+

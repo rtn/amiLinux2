@@ -1,0 +1,32 @@
+#
+# The following lines prevent .user.ini files from being viewed by Web clients.
+#
+<Files ".user.ini">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+        Satisfy All
+    </IfModule>
+</Files>
+
+#
+# Allow php to handle Multiviews
+#
+AddType text/html .php
+
+<IfModule mpm_event_module>
+    DirectoryIndex index.php
+
+    # NOTE: the captured request URI ($1) is not passed after the path
+    <IfModule proxy_fcgi_module>
+        #ProxyPassMatch ^/(.*\.php(/.*)?)$ unix:/run//php-fpm/www.sock|fcgi://127.0.0.1:9000/v
+
+        # https://ma.ttias.be/apache-2-4-proxypass-for-php-taking-precedence-over-filesfilesma
+        <FilesMatch \.php$>
+             SetHandler "proxy:unix:///run/php-fpm/www.sock|fcgi://127.0.0.1:9000"
+        </FilesMatch>
+    </IfModule>
+</IfModule>
