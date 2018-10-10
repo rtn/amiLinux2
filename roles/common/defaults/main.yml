@@ -1,2 +1,22 @@
 ---
 # defaults file for common
+date_timezone: America/Los_Angeles
+
+common_app_list:
+  - {name: vim}
+  - {name: git}
+  - {name: wget}
+  - {name: libselinux-python}
+  - {name: libsemanage-python}
+
+vimrc:
+  - {src: 'tmpl/vim/.vimrc', dest: '/root/', owner: 'root'}
+  - {src: 'tmpl/vim/.vimrc', dest: '/home/ec2-user/', owner: 'ec2-user' }
+
+user_dirs:
+  - { name: '/root/.vim/backup', owner: 'root' }
+  - { name: '/root/.vim/swap', owner: 'root' }
+  - { name: '/root/.vim/tmp', owner: 'root' }
+  - { name: '/home/ec2-user/.vim/backup', owner: 'ec2-user' }
+  - { name: '/home/ec2-user/.vim/swap', owner: 'ec2-user' }
+  - { name: '/home/ec2-user/.vim/tmp', owner: 'ec2-user' }
