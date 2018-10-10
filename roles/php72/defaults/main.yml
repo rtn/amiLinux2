@@ -16,6 +16,7 @@ php_mod_list:
   - [php-opcache]
   - [php-pear]
   - [php-pdo]
+  - [php-pecl-zip]
   - [php-process]
   - [php-pspell]
   - [php-soap]
