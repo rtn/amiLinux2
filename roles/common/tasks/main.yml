@@ -1,9 +1,9 @@
 # Manage all common applications on CENTOS servers
 #
 ---
-- name: Ensure system timezone is America/Los_Angeles
+- name: Ensure system timezone is "{{ date_timezone }}" 
   timezone:
-      name: America/Los_Angeles
+      name: "{{ date_timezone }}"
 
 - name: Ensure essential tools
   yum:
@@ -11,6 +11,25 @@
       state: latest
   with_items:
       - "{{ common_app_list }}"
+
+# Copy files from tmpl to destination
+- name: Ensure vimrc
+  copy:
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+      owner: "{{ item.owner }}"
+      mode:  0640
+  with_items:
+    - "{{ vimrc }}"
+    
+- name: Ensure user home vim path
+  file:
+      name: "{{ item.name }}"
+      owner: "{{ item.owner }}"
+      mode: 0750
+      state: directory
+  with_items:
+    - "{{ user_dirs }}"
 
 # System Utilities update
 - name: Yum userland update
