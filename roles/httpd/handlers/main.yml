@@ -1,6 +1,7 @@
 ---
 - name: Ensure httpd is enabled and running
-  service:
-      name: httpd
-      enabled: yes
-      state: started
+  systemd:
+    name: httpd
+    state: started
+    enabled: yes
+    masked: no
