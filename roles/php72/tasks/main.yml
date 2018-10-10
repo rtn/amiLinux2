@@ -17,5 +17,5 @@
       state: present
   with_nested: 
       - "{{ php_mod_list }}"
-#  notify: "restart php-fpm"
-#  tags: php
+  notify: php-fpm 
+  tags: php
