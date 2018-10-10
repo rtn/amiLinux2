@@ -1,8 +1,7 @@
 ---
 - name: Ensure php-fpm is enabled and running
-  service:
-      name: restart php-fpm
+  systemd:
+      name: php-fpm
+      state: started
       enabled: yes
-      state: restarted
-      listen: "restart php-fpm"
-
+      masked: no
