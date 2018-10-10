@@ -1,9 +1,16 @@
 ---
 
-- name: Ensure httpd is lates 
+- name: Ensure httpd is latest 
   yum:
       name: httpd
       state: latest 
+      #  notify: "Ensure httpd is enabled and running"
+      #tags: http
+
+- name: Ensure mod ssl is present
+  yum:
+      name: mod_ssl
+      state: latest
   notify: "Ensure httpd is enabled and running"
   tags: http
 
@@ -11,13 +18,6 @@
   template:
       src: conf.d/php.conf.j2
       dest: /etc/httpd/conf.d/php.conf
-
-- name: Ensure mod24_ssl is present
-  yum:
-      name: mod_ssl
-      state: latest
-  notify: "Ensure httpd is enabled and running"
-  tags: http
 
 ########################
 # SELINUX Security
