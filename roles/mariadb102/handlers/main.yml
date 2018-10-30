@@ -1,0 +1,7 @@
+---
+- name: Ensure php-fpm is enabled and running
+  systemd:
+      name: php-fpm
+      state: started
+      enabled: yes
+      masked: no
